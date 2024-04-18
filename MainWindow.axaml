@@ -1,0 +1,62 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="EchoBranch.MainWindow"
+        Title="EchoBranch"
+        MinWidth="1000"
+        MinHeight="600">
+    <Window.Styles>
+        <Style Selector="Button /template/ ContentPresenter /template/ Image:pointerover">
+            <Setter Property="Opacity" Value="0.7" />
+        </Style>
+        <Style Selector="Button /template/ ContentPresenter /template/ Image">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+    </Window.Styles>
+    <Grid Background="#202020">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <!-- Left content for playlists -->
+        <Border Grid.Row="0" Background="Black" CornerRadius="16" Padding="10" Margin="10,10,10,10" VerticalAlignment="Top" Height="100">
+            <StackPanel HorizontalAlignment="Center">
+                <Button Background="Transparent" Margin="5, 0, 5, 5">
+                    <Image Source="Icons/home.png" Width="25" Height="25" />
+                </Button>
+                <Button Background="Transparent" Margin="5, 0, 5,5">
+                    <Image Source="Icons/search.png" Width="25" Height="25" />
+                </Button>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="1" Background="Black" CornerRadius="16" Padding="10" Margin="10,120,10,10" VerticalAlignment="Stretch">
+            <StackPanel HorizontalAlignment="Center">
+                <!--Playlists-->
+                <Button Background="Transparent" Margin="5, 0, 5, 5">
+                    <Image Source="Icons/playlist.png" Width="25" Height="25" />
+                </Button>
+                <Button Background="Transparent" Margin="5, 0, 5, 5">
+                    <Image Source="Icons/spotify.png" Width="25" Height="25" />
+                </Button>
+            </StackPanel>
+        </Border>
+        <!-- Center content -->
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Drag in a song to create a new playlist!" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,10"/>
+        </StackPanel>
+        <!-- Bottom content -->
+        <Border Grid.Column="1" VerticalAlignment="Bottom" Background="Black" CornerRadius="12" Padding="10" Margin="10,10,10,10" HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Background="Transparent" Margin="5">
+                    <Image Source="Icons/previous.png" Width="35" Height="35"/>
+                </Button>
+                <Button Background="Transparent" Margin="5">
+                    <Image Source="Icons/play.png" Width="45" Height="45"/>
+                </Button>
+                <Button Background="Transparent" Margin="5">
+                    <Image Source="Icons/next.png" Width="35" Height="35"/>
+                </Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
+
