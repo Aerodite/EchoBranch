@@ -150,10 +150,12 @@ C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\Avalonia.FreeDeskt
 C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\Avalonia.Native.dll
 C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\Avalonia.Remote.Protocol.dll
 C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\Avalonia.Skia.dll
+C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\Avalonia.Svg.dll
 C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\Avalonia.Themes.Fluent.dll
 C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\Avalonia.Themes.Simple.dll
 C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\Avalonia.Win32.dll
 C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\Avalonia.X11.dll
+C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\ExCSS.dll
 C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\HarfBuzzSharp.dll
 C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\ManagedBass.dll
 C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\MicroCom.Runtime.dll
@@ -167,7 +169,10 @@ C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\NAudio.Core.dll
 C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\NAudio.Midi.dll
 C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\NAudio.Wasapi.dll
 C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\NAudio.WinMM.dll
+C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\ShimSkiaSharp.dll
 C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\SkiaSharp.dll
+C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\Svg.Custom.dll
+C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\Svg.Model.dll
 C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\System.IO.Pipelines.dll
 C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\Tmds.DBus.Protocol.dll
 C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
@@ -260,8 +265,3 @@ C:\Users\Anthony\Documents\GitHub\EchoBranch\obj\Debug\net8.0\EchoBranch.pdb
 C:\Users\Anthony\Documents\GitHub\EchoBranch\obj\Debug\net8.0\EchoBranch.csproj.Up2Date
 C:\Users\Anthony\Documents\GitHub\EchoBranch\obj\Debug\net8.0\EchoBranch.genruntimeconfig.cache
 C:\Users\Anthony\Documents\GitHub\EchoBranch\obj\Debug\net8.0\ref\EchoBranch.dll
-C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\Avalonia.Svg.dll
-C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\ExCSS.dll
-C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\ShimSkiaSharp.dll
-C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\Svg.Custom.dll
-C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\Svg.Model.dll
