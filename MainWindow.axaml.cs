@@ -1,17 +1,13 @@
 using System;
-using System.Collections.Generic;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using NAudio.Wave;
 using Avalonia.Input;
-using System.IO;
-using System.Linq;
 using Avalonia;
-using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
-using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Platform;
+using NLog;
 
 namespace EchoBranch {
     public partial class MainWindow : Window {
@@ -21,73 +17,33 @@ namespace EchoBranch {
             _waveOutDevice = waveOutDevice;
             _audioFileReader = audioFileReader;
             InitializeComponent();
-            this.AttachedToVisualTree += OnAttachedToVisualTree;
-
             ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaTitleBarHeightHint = -1;
             ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.PreferSystemChrome;
-            this.ExtendClientAreaToDecorationsHint = true;
+            ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaTitleBarHeightHint = 32;
             ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.PreferSystemChrome;
-            this.Background = Brushes.Black;
-            this.PointerPressed += (sender, e) => BeginMoveDrag(e);
-            this.BorderBrush = Brushes.Black;
+            Background = Brushes.Black;
+            PointerPressed += (sender, e) =>
+            {
+                var point = e.GetPosition(this);
+                const int titleBarHeight = 34; // Height of the title bar + an extra 2px of wiggle room
+                if (point.Y <= titleBarHeight)
+                {
+                    BeginMoveDrag(e);
+                }
+            };
+            BorderBrush = Brushes.Black;
             DragDrop.SetAllowDrop(this, true);
+            AddHandler(DragDrop.DropEvent, DropEvent.HandleDrop);
+            AddHandler(DragDrop.DragOverEvent, DropEvent.HandleDragOver);
+            Console.WriteLine("Dragged");
+            AppData.CreateAppDataFolder();
+            Console.WriteLine($"AppData Path: {AppData.GetAppDataPath()}");
+            // Create a log file in the AppData directory
+            LogFileHandler.CreateLogFile();
+            LogFileHandler.WriteLog($"Log file initialized");
         }
-        private void OnAttachedToVisualTree(object? sender, VisualTreeAttachmentEventArgs e) {
-            DragDrop.SetAllowDrop(MainGrid, true);
-            MainGrid.AddHandler(DragDrop.DragOverEvent, DragOver, RoutingStrategies.Tunnel);
-            MainGrid.AddHandler(DragDrop.DropEvent, Drop, RoutingStrategies.Tunnel);
-        }
-
-        /*
-         *
-          TODO: Make it actually do shit with the dragged in audio files
-         *
-         */
-
-        private static void DragOver(object? sender, DragEventArgs e) {
-            if (e.Data.Contains(DataFormats.FileNames)) {
-                e.DragEffects = DragDropEffects.Copy;
-                Console.WriteLine("FileNames detected in drag data.");
-            } else {
-                e.DragEffects = DragDropEffects.None;
-                Console.WriteLine("No FileNames detected in drag data.");
-            }
-            e.Handled = true;
-        }
-        private static void Drop(object? sender, DragEventArgs e)
-        {
-            if (!e.Data.Contains(DataFormats.FileNames)) return;
-            var filenames = e.Data.GetFileNames()?.ToArray();
-            if (filenames == null) return;
-            foreach (var filename in filenames) {
-                // Handle the dropped files here
-                Console.WriteLine(filename);
-            }
-        }
-
-        public class Playlist(List<string> audioFiles, string name)
-        {
-            public string Name { get; private set; } = name;
-            private List<string> AudioFiles { get; set; } = audioFiles;
-
-            public Playlist(string name) : this([], name)
-            {
-            }
-
-            public void AddAudioFile(string filePath)
-            {
-                AudioFiles.Add(filePath);
-            }
-
-            public void Rename(string newName)
-            {
-                Name = newName;
-                // Here we can also rename the corresponding folder in the AppData path
-            }
-        }
-
         private void InitializeComponent() {
             AvaloniaXamlLoader.Load(this);
         }

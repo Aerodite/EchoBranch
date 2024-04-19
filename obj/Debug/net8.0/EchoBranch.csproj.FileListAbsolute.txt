@@ -265,3 +265,4 @@ C:\Users\Anthony\Documents\GitHub\EchoBranch\obj\Debug\net8.0\EchoBranch.pdb
 C:\Users\Anthony\Documents\GitHub\EchoBranch\obj\Debug\net8.0\EchoBranch.csproj.Up2Date
 C:\Users\Anthony\Documents\GitHub\EchoBranch\obj\Debug\net8.0\EchoBranch.genruntimeconfig.cache
 C:\Users\Anthony\Documents\GitHub\EchoBranch\obj\Debug\net8.0\ref\EchoBranch.dll
+C:\Users\Anthony\Documents\GitHub\EchoBranch\bin\Debug\net8.0\NLog.dll

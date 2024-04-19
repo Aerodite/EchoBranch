@@ -15,7 +15,8 @@
           "Avalonia.Svg": "11.0.0.18",
           "Avalonia.Themes.Fluent": "11.0.10",
           "ManagedBass": "3.1.1",
-          "NAudio": "2.2.1"
+          "NAudio": "2.2.1",
+          "NLog": "5.2.8"
         },
         "runtime": {
           "EchoBranch.dll": {}
@@ -679,6 +680,14 @@
           }
         }
       },
+      "NLog/5.2.8": {
+        "runtime": {
+          "lib/netstandard2.0/NLog.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.2.8.2366"
+          }
+        }
+      },
       "ShimSkiaSharp/1.0.0.18": {
         "runtime": {
           "lib/net8.0/ShimSkiaSharp.dll": {
@@ -1304,6 +1313,13 @@
       "sha512": "sha512-xFHRFwH4x6aq3IxRbewvO33ugJRvZFEOfO62i7uQJRUNW2cnu6BeBTHUS0JD5KBucZbHZaYqxQG8dwZ47ezQuQ==",
       "path": "naudio.winmm/2.2.1",
       "hashPath": "naudio.winmm.2.2.1.nupkg.sha512"
+    },
+    "NLog/5.2.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jAIELkWBs1CXFPp986KSGpDFQZHCFccO+LMbKBTTNm42KifaI1mYzFMFQQfuGmGMTrCx0TFPhDjHDE4cLAZWiQ==",
+      "path": "nlog/5.2.8",
+      "hashPath": "nlog.5.2.8.nupkg.sha512"
     },
     "ShimSkiaSharp/1.0.0.18": {
       "type": "package",

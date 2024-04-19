@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "bLg3URHJ8eImnpzHaAss/KYosC0UEl8u16xNCjTBUcLjjbq8eSEy9cvU/5XTI4lfZbvUAVWFwslrqNobTR6dDQ==",
+  "dgSpecHash": "avlOX17CFjk+996T7tuYLw8YYhziccPa11GeJ+Ap8tSo9XyOC4PKCJozFnB+jB9knLoR7xrrJ+dH7Zymw82xAg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Anthony\\Documents\\GitHub\\EchoBranch\\EchoBranch.csproj",
   "expectedPackageFiles": [
@@ -44,6 +44,7 @@
     "C:\\Users\\Anthony\\.nuget\\packages\\naudio.midi\\2.2.1\\naudio.midi.2.2.1.nupkg.sha512",
     "C:\\Users\\Anthony\\.nuget\\packages\\naudio.wasapi\\2.2.1\\naudio.wasapi.2.2.1.nupkg.sha512",
     "C:\\Users\\Anthony\\.nuget\\packages\\naudio.winmm\\2.2.1\\naudio.winmm.2.2.1.nupkg.sha512",
+    "C:\\Users\\Anthony\\.nuget\\packages\\nlog\\5.2.8\\nlog.5.2.8.nupkg.sha512",
     "C:\\Users\\Anthony\\.nuget\\packages\\shimskiasharp\\1.0.0.18\\shimskiasharp.1.0.0.18.nupkg.sha512",
     "C:\\Users\\Anthony\\.nuget\\packages\\skiasharp\\2.88.7\\skiasharp.2.88.7.nupkg.sha512",
     "C:\\Users\\Anthony\\.nuget\\packages\\skiasharp.nativeassets.linux\\2.88.7\\skiasharp.nativeassets.linux.2.88.7.nupkg.sha512",

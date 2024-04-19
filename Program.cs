@@ -1,34 +1,26 @@
 ﻿using Avalonia;
 using System;
 using System.IO;
+using NLog;
+using NLog.Config;
 
 namespace EchoBranch;
 
-class Program
+internal abstract class Program
 {
     // Initialization code. Don't use any Avalonia, third-party APIs or any
     // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
     // yet and stuff might break.
     [STAThread]
-    public static void Main(string[] args) => BuildAvaloniaApp()
-        .StartWithClassicDesktopLifetime(args);
+    public static void Main(string[] args)
+    {
+        BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+    }
 
-    // Avalonia configuration, don't remove; also used by visual designer.
-    public static AppBuilder BuildAvaloniaApp()
+// Avalonia configuration, don't remove; also used by visual designer.
+private static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
             .WithInterFont()
             .LogToTrace();
-
-    public static string GetAppDataPath()
-    {
-        string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        string appDataFolder = Path.Combine(appDataPath, "EchoBranch");
-        if (!Directory.Exists(appDataFolder))
-        {
-            Directory.CreateDirectory(appDataFolder);
-        }
-        return appDataFolder;
-    }
-
 }

@@ -893,6 +893,19 @@
           }
         }
       },
+      "NLog/5.2.8": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/NLog.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/NLog.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "ShimSkiaSharp/1.0.0.18": {
         "type": "package",
         "compile": {
@@ -2740,6 +2753,30 @@
         "naudio-icon.png",
         "naudio.winmm.2.2.1.nupkg.sha512",
         "naudio.winmm.nuspec"
+      ]
+    },
+    "NLog/5.2.8": {
+      "sha512": "jAIELkWBs1CXFPp986KSGpDFQZHCFccO+LMbKBTTNm42KifaI1mYzFMFQQfuGmGMTrCx0TFPhDjHDE4cLAZWiQ==",
+      "type": "package",
+      "path": "nlog/5.2.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "N.png",
+        "lib/net35/NLog.dll",
+        "lib/net35/NLog.xml",
+        "lib/net45/NLog.dll",
+        "lib/net45/NLog.xml",
+        "lib/net46/NLog.dll",
+        "lib/net46/NLog.xml",
+        "lib/netstandard1.3/NLog.dll",
+        "lib/netstandard1.3/NLog.xml",
+        "lib/netstandard1.5/NLog.dll",
+        "lib/netstandard1.5/NLog.xml",
+        "lib/netstandard2.0/NLog.dll",
+        "lib/netstandard2.0/NLog.xml",
+        "nlog.5.2.8.nupkg.sha512",
+        "nlog.nuspec"
       ]
     },
     "ShimSkiaSharp/1.0.0.18": {
@@ -4945,7 +4982,8 @@
       "Avalonia.Svg >= 11.0.0.18",
       "Avalonia.Themes.Fluent >= 11.0.10",
       "ManagedBass >= 3.1.1",
-      "NAudio >= 2.2.1"
+      "NAudio >= 2.2.1",
+      "NLog >= 5.2.8"
     ]
   },
   "packageFolders": {
@@ -5016,6 +5054,10 @@
           "NAudio": {
             "target": "Package",
             "version": "[2.2.1, )"
+          },
+          "NLog": {
+            "target": "Package",
+            "version": "[5.2.8, )"
           }
         },
         "imports": [

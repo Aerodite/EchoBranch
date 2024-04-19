@@ -19,7 +19,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <!-- Left content for playlists -->
-        <Border Grid.Row="0" Background="#202020" CornerRadius="16" Padding="10" Margin="10,10,10,10" VerticalAlignment="Top" Height="100">
+        <Border Grid.Row="0" Background="#202020" CornerRadius="16" Padding="10" Margin="10,42,10,10" VerticalAlignment="Top" Height="100">
             <StackPanel HorizontalAlignment="Center">
                 <Button Background="Transparent" Margin="5, 0, 5, 5">
                     <Image Source="Icons/home.png" Width="25" Height="25" />
@@ -29,7 +29,9 @@
                 </Button>
             </StackPanel>
         </Border>
-        <Border Grid.Row="1" Background="#202020" CornerRadius="16" Padding="10" Margin="10,120,10,10" VerticalAlignment="Stretch">
+        <!--The top padding tolerance on 22:93 and 34:93 has to be adjusted for any changes with the title bar
+        (Will be user adjustable later for sure.)-->
+        <Border Grid.Row="1" Background="#202020" CornerRadius="16" Padding="10" Margin="10,152,10,10" VerticalAlignment="Stretch">
             <StackPanel HorizontalAlignment="Center">
                 <!--Playlists-->
                 <Button Background="Transparent" Margin="5, 0, 5, 5">
