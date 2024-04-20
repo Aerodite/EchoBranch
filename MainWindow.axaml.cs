@@ -1,22 +1,32 @@
 using System;
+using System.Collections.Generic;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using NAudio.Wave;
 using Avalonia.Input;
 using Avalonia;
+using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Platform;
 using NLog;
 
 namespace EchoBranch {
-    public partial class MainWindow : Window {
+    public partial class MainWindow : Window
+    {
+        private Dictionary<string, UserControl> views = new Dictionary<string, UserControl>();
         private IWavePlayer? _waveOutDevice;
         private AudioFileReader? _audioFileReader;
         public MainWindow(IWavePlayer? waveOutDevice, AudioFileReader? audioFileReader) {
             _waveOutDevice = waveOutDevice;
             _audioFileReader = audioFileReader;
             InitializeComponent();
+            /*
+               I have no clue why the FUCK this has to be async to work
+               when I tried using just SetupViews(); it would completely crash
+               but oh well it works now.
+            */
+            Avalonia.Threading.Dispatcher.UIThread.InvokeAsync(SetupViews);
             ExtendClientAreaToDecorationsHint = true;
             ExtendClientAreaTitleBarHeightHint = -1;
             ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.PreferSystemChrome;
@@ -43,6 +53,14 @@ namespace EchoBranch {
             // Create a log file in the AppData directory
             LogFileHandler.CreateLogFile();
             LogFileHandler.WriteLog($"Log file initialized");
+            this.AddHandler(DragDrop.DropEvent, (sender, e) => DropEvent.HandleDrop(this, e));
+        }
+
+        private void SetupViews() {
+            views["Home"] = new HomeView();
+            views["Spotify"] = new SpotifyView();
+            views["Playlist"] = new PlaylistView();
+            MainContent.Content = views["Home"];
         }
         private void InitializeComponent() {
             AvaloniaXamlLoader.Load(this);
@@ -72,6 +90,38 @@ namespace EchoBranch {
 
             _audioFileReader?.Dispose();
             _audioFileReader = null;
+        }
+
+        protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+        {
+            base.OnApplyTemplate(e);
+            MainContent = this.FindControl<ContentControl>("MainContent");
+            SetupViews();
+        }
+        private void SwitchView(string viewName)
+        {
+            if (views.TryGetValue(viewName, out var value))
+            {
+                MainContent.Content = value;
+            }
+            else
+            {
+                Console.WriteLine($"View {viewName} not found");
+                LogFileHandler.CreateLogFile();
+                LogFileHandler.WriteLog($"View {viewName} not found");
+
+            }
+        }
+
+        private void HomeButton_Click(object? sender, RoutedEventArgs e)
+        {
+            SwitchView("Home");
+        }
+
+        private void SpotifyButton_Click(object? sender, RoutedEventArgs e)
+        {
+
+            SwitchView("Spotify");
         }
     }
 }

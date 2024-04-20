@@ -21,7 +21,7 @@
         <!-- Left content for playlists -->
         <Border Grid.Row="0" Background="#202020" CornerRadius="16" Padding="10" Margin="10,42,10,10" VerticalAlignment="Top" Height="100">
             <StackPanel HorizontalAlignment="Center">
-                <Button Background="Transparent" Margin="5, 0, 5, 5">
+                <Button Background="Transparent" Margin="5, 0, 5, 5" Click="HomeButton_Click">
                     <Image Source="Icons/home.png" Width="25" Height="25" />
                 </Button>
                 <Button Background="Transparent" Margin="5, 0, 5,5">
@@ -37,14 +37,18 @@
                 <Button Background="Transparent" Margin="5, 0, 5, 5">
                     <Image Source="Icons/playlist.png" Width="25" Height="25" />
                 </Button>
-                <Button Background="Transparent" Margin="5, 0, 5, 5">
+                <Button Background="Transparent" Margin="5, 0, 5, 5" Click="SpotifyButton_Click">
                     <Image Source="Icons/spotify.png" Width="25" Height="25" />
                 </Button>
             </StackPanel>
         </Border>
         <!-- Center content -->
         <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="Drag in a song to create a new playlist!" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10,0,10"/>
+            <!--Add text that says to drag in an audio file to make a playlist-->
+            <ContentControl Name="MainTextContent" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Drag in an audio file to make a playlist! (Or connect your Spotify Account!)" FontSize="16" Foreground="White" HorizontalAlignment="Center"/>
+            </ContentControl>
+            <ContentControl Name="MainContent" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </StackPanel>
         <!-- Bottom content -->
         <Border Grid.Column="1" VerticalAlignment="Bottom" Background="#101010" CornerRadius="12" Padding="10" Margin="10,10,10,10" HorizontalAlignment="Stretch" BorderBrush="#202020" BorderThickness="4">

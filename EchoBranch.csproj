@@ -29,4 +29,10 @@
   <ItemGroup>
     <Folder Include="appIcon\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="SpotifyView.axaml.cs">
+      <DependentUpon>SpotifyView.axaml.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

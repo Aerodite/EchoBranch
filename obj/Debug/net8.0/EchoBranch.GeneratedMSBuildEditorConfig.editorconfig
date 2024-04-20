@@ -20,5 +20,14 @@ build_property.EnableGeneratedComInterfaceComImportInterop =
 [C:/Users/Anthony/Documents/GitHub/EchoBranch/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[C:/Users/Anthony/Documents/GitHub/EchoBranch/HomeView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Users/Anthony/Documents/GitHub/EchoBranch/MainWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Anthony/Documents/GitHub/EchoBranch/PlaylistView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/Anthony/Documents/GitHub/EchoBranch/SpotifyView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
