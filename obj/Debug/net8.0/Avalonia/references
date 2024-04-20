@@ -22,6 +22,7 @@ C:\Users\Anthony\.nuget\packages\avalonia.themes.fluent\11.0.10\lib\net6.0\Avalo
 C:\Users\Anthony\.nuget\packages\avalonia.themes.simple\11.0.10\lib\net6.0\Avalonia.Themes.Simple.dll
 C:\Users\Anthony\.nuget\packages\avalonia.win32\11.0.10\lib\net6.0\Avalonia.Win32.dll
 C:\Users\Anthony\.nuget\packages\avalonia.x11\11.0.10\lib\net6.0\Avalonia.X11.dll
+C:\Users\Anthony\.nuget\packages\dotnetenv\3.0.0\lib\netstandard1.3\DotNetEnv.dll
 C:\Users\Anthony\.nuget\packages\excss\4.2.3\lib\net7.0\ExCSS.dll
 C:\Users\Anthony\.nuget\packages\harfbuzzsharp\7.3.0\lib\net6.0\HarfBuzzSharp.dll
 C:\Users\Anthony\.nuget\packages\managedbass\3.1.1\lib\netstandard1.4\ManagedBass.dll
@@ -31,6 +32,9 @@ C:\Users\Anthony\.nuget\packages\microsoft.codeanalysis.csharp.scripting\3.8.0\l
 C:\Users\Anthony\.nuget\packages\microsoft.codeanalysis.common\3.8.0\lib\netcoreapp3.1\Microsoft.CodeAnalysis.dll
 C:\Users\Anthony\.nuget\packages\microsoft.codeanalysis.scripting.common\3.8.0\lib\netcoreapp3.1\Microsoft.CodeAnalysis.Scripting.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.4\ref\net8.0\Microsoft.CSharp.dll
+C:\Users\Anthony\.nuget\packages\microsoft.extensions.configuration.abstractions\1.1.2\lib\netstandard1.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\Anthony\.nuget\packages\microsoft.extensions.configuration\1.1.2\lib\netstandard1.1\Microsoft.Extensions.Configuration.dll
+C:\Users\Anthony\.nuget\packages\microsoft.extensions.primitives\1.1.1\lib\netstandard1.0\Microsoft.Extensions.Primitives.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.4\ref\net8.0\Microsoft.VisualBasic.Core.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.4\ref\net8.0\Microsoft.VisualBasic.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.4\ref\net8.0\Microsoft.Win32.Primitives.dll
@@ -46,6 +50,7 @@ C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.4\ref\net8.0\netstan
 C:\Users\Anthony\.nuget\packages\nlog\5.2.8\lib\netstandard2.0\NLog.dll
 C:\Users\Anthony\.nuget\packages\shimskiasharp\1.0.0.18\lib\net8.0\ShimSkiaSharp.dll
 C:\Users\Anthony\.nuget\packages\skiasharp\2.88.7\lib\net6.0\SkiaSharp.dll
+C:\Users\Anthony\.nuget\packages\sprache\2.3.1\lib\netstandard2.1\Sprache.dll
 C:\Users\Anthony\.nuget\packages\svg.custom\1.0.0.18\lib\net8.0\Svg.Custom.dll
 C:\Users\Anthony\.nuget\packages\svg.model\1.0.0.18\lib\net8.0\Svg.Model.dll
 C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\8.0.4\ref\net8.0\System.AppContext.dll

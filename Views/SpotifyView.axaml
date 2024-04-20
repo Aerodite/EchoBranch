@@ -1,10 +1,10 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="EchoBranch.SpotifyView">
+             x:Class="EchoBranch.Views.SpotifyView">
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
         <TextBlock Text="Spotify content will be displayed here" />
-        <TextBlock x:Name="SpotifyApiLink" Foreground="Blue" TextDecorations="Underline">
-            Click here to go to Spotify API
-        </TextBlock>
+        <Button x:Name="SpotifyApiLink">
+            <TextBlock>Authorize Spotify</TextBlock>
+        </Button>
     </StackPanel>
 </UserControl>

@@ -26,8 +26,8 @@ build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 [C:/Users/Anthony/Documents/GitHub/EchoBranch/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Anthony/Documents/GitHub/EchoBranch/PlaylistView.axaml]
+[C:/Users/Anthony/Documents/GitHub/EchoBranch/Views/PlaylistView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Anthony/Documents/GitHub/EchoBranch/SpotifyView.axaml]
+[C:/Users/Anthony/Documents/GitHub/EchoBranch/Views/SpotifyView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

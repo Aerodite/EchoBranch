@@ -9,6 +9,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Platform;
+using EchoBranch.Views;
 using NLog;
 
 namespace EchoBranch {
@@ -53,12 +54,27 @@ namespace EchoBranch {
             // Create a log file in the AppData directory
             LogFileHandler.CreateLogFile();
             LogFileHandler.WriteLog($"Log file initialized");
+            var spotifyView = this.FindControl<SpotifyView>("SpotifyView");
+
+            // Subscribe to the LayoutChanged event of the SpotifyView
+            if (spotifyView != null) spotifyView.LayoutChanged += SpotifyView_LayoutChanged;
+
+
             this.AddHandler(DragDrop.DropEvent, (sender, e) => DropEvent.HandleDrop(this, e));
         }
 
+        private void SpotifyView_LayoutChanged()
+        {
+            //this has to be a null string so it wont show up after switching the view
+            //current doesnt work for some reason though??
+            SpotifyTextBlock.Text = "";
+        }
+
         private void SetupViews() {
+            // This was the easiest way I could think of setting up the multiple views
+            // If anyone has a better implementation please let me know.
             views["Home"] = new HomeView();
-            views["Spotify"] = new SpotifyView();
+            views["Spotify"] = new Views.SpotifyView();
             views["Playlist"] = new PlaylistView();
             MainContent.Content = views["Home"];
         }

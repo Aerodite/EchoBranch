@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using NLog;
 using NLog.Config;
+using DotNetEnv;
 
 namespace EchoBranch;
 
@@ -15,6 +16,7 @@ internal abstract class Program
     public static void Main(string[] args)
     {
         BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+        Env.Load();
     }
 
 // Avalonia configuration, don't remove; also used by visual designer.
