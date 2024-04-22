@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Anthony\\Documents\\GitHub\\EchoBranch\\EchoBranch.csproj": {}
+    "/Users/anthony/Documents/GitHub/Echo/EchoBranch/EchoBranch.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Anthony\\Documents\\GitHub\\EchoBranch\\EchoBranch.csproj": {
+    "/Users/anthony/Documents/GitHub/Echo/EchoBranch/EchoBranch.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Anthony\\Documents\\GitHub\\EchoBranch\\EchoBranch.csproj",
+        "projectUniqueName": "/Users/anthony/Documents/GitHub/Echo/EchoBranch/EchoBranch.csproj",
         "projectName": "EchoBranch",
-        "projectPath": "C:\\Users\\Anthony\\Documents\\GitHub\\EchoBranch\\EchoBranch.csproj",
-        "packagesPath": "C:\\Users\\Anthony\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Anthony\\Documents\\GitHub\\EchoBranch\\obj\\",
+        "projectPath": "/Users/anthony/Documents/GitHub/Echo/EchoBranch/EchoBranch.csproj",
+        "packagesPath": "/Users/anthony/.nuget/packages/",
+        "outputPath": "/Users/anthony/Documents/GitHub/Echo/EchoBranch/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Anthony\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/anthony/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -95,7 +95,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.203/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -13,21 +13,21 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = EchoBranch
-build_property.ProjectDir = C:\Users\Anthony\Documents\GitHub\EchoBranch\
+build_property.ProjectDir = /Users/anthony/Documents/GitHub/Echo/EchoBranch/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 
-[C:/Users/Anthony/Documents/GitHub/EchoBranch/App.axaml]
+[/Users/anthony/Documents/GitHub/Echo/EchoBranch/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Anthony/Documents/GitHub/EchoBranch/HomeView.axaml]
+[/Users/anthony/Documents/GitHub/Echo/EchoBranch/HomeView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Anthony/Documents/GitHub/EchoBranch/MainWindow.axaml]
+[/Users/anthony/Documents/GitHub/Echo/EchoBranch/MainWindow.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Anthony/Documents/GitHub/EchoBranch/Views/PlaylistView.axaml]
+[/Users/anthony/Documents/GitHub/Echo/EchoBranch/Views/PlaylistView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
-[C:/Users/Anthony/Documents/GitHub/EchoBranch/Views/SpotifyView.axaml]
+[/Users/anthony/Documents/GitHub/Echo/EchoBranch/Views/SpotifyView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

@@ -8,7 +8,6 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
@@ -19,11 +18,12 @@ namespace EchoBranch.Views
     {
         private const string ClientId = "3d31767e98fc4291b6c80eab03a82d53";
         //no clue if the client secret works on other computers, testing is needed :(
+        //this needs to grab from github secrets rather than IDE env variables.
         private static readonly string ClientSecret = Environment.GetEnvironmentVariable("CLIENTSECRET") ?? throw new InvalidOperationException("Client Secret not found in environment variables");
         private const string RedirectUri = "http://localhost:9090";
         public event Action? LayoutChanged;
 
-        public SpotifyView()
+        protected internal SpotifyView()
         {
             InitializeComponent();
             this.FindControl<Button>("SpotifyApiLink")!.Click += (sender, e) => AuthorizeSpotify();
@@ -61,7 +61,7 @@ namespace EchoBranch.Views
             LayoutChanged?.Invoke();
         }
 
-        private async Task<List<string>> FetchPlaylists()
+        private async Task<List<string?>> FetchPlaylists()
         {
             var token = LoadToken();
             using var httpClient = new HttpClient();
@@ -71,10 +71,12 @@ namespace EchoBranch.Views
 
             var playlistsResponse = JsonSerializer.Deserialize<PlaylistsResponse>(responseString);
 
-            return playlistsResponse.items?.Select(i => i.name).ToList() ?? new List<string>();
+            // Keep this null-safe please. Possible wacky behavior if for whatever reason end-user has no playlists
+            // Best way to do this in the future imo would be to have a settings menu to ask what they want to show from spotify
+            return playlistsResponse?.Items?.Select(i => i.Name).ToList() ?? [];
         }
 
-        private static SpotifyTokenResponse LoadToken()
+        private static SpotifyTokenResponse? LoadToken()
         {
             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var filePath = Path.Combine(appDataPath, "EchoBranch", "data", "spotifyToken.json");
@@ -82,14 +84,19 @@ namespace EchoBranch.Views
             return JsonSerializer.Deserialize<SpotifyTokenResponse>(jsonString);
         }
 
-        public class PlaylistsResponse
+        public class PlaylistsResponse(List<PlaylistItem>? items)
         {
-            public List<PlaylistItem> items { get; set; }
+            public List<PlaylistItem>? Items { get; init; } = items;
         }
 
-        public class PlaylistItem
+        public abstract class PlaylistItem
         {
-            public string name { get; set; }
+            protected PlaylistItem(string? name)
+            {
+                Name = name;
+            }
+
+            public string? Name { get; }
         }
 
         private static async void AuthorizeSpotify()
@@ -139,11 +146,12 @@ namespace EchoBranch.Views
 
             var tokenResponse = JsonSerializer.Deserialize<SpotifyTokenResponse>(responseString);
 
-            SaveToken(tokenResponse);
+            SaveToken(tokenResponse ?? throw new InvalidOperationException("Unable to save the token."));
 
             LogFileHandler.CreateLogFile();
             LogFileHandler.WriteLog($"Spotify authorization complete and successful!");
 
+            //handle token expiration
             if (tokenResponse.expiration_time <= DateTime.Now)
             {
                 await RefreshAccessToken(tokenResponse.refresh_token);
@@ -170,6 +178,7 @@ namespace EchoBranch.Views
 
         private static async Task RefreshAccessToken(string refreshToken)
         {
+            // this doesnt work yet for whatever reason, investigation needed.
             using var httpClient = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Post, "https://accounts.spotify.com/api/token");
             request.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes($"{ClientId}:{ClientSecret}")));
@@ -185,7 +194,7 @@ namespace EchoBranch.Views
 
             var tokenResponse = JsonSerializer.Deserialize<SpotifyTokenResponse>(responseString);
 
-            SaveToken(tokenResponse);
+            SaveToken(tokenResponse ?? throw new InvalidOperationException("Unable to refresh the Spotify token."));
         }
         public class SpotifyTokenResponse
         {
