@@ -1,7 +1,12 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="EchoBranch.Views.SpotifyView">
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+    <UserControl.Styles>
+        <Style Selector="Border.hoverable-border:pointerover">
+            <Setter Property="Background" Value="#33FFFFFF"/>
+        </Style>
+    </UserControl.Styles>
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
         <TextBlock Text="Spotify content will be displayed here" />
         <Button x:Name="SpotifyApiLink">
             <TextBlock>Authorize Spotify</TextBlock>

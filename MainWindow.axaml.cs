@@ -15,10 +15,12 @@ using NLog;
 namespace EchoBranch {
     public partial class MainWindow : Window
     {
+        public static MainWindow? Instance { get; private set; }
         private Dictionary<string, UserControl> views = new Dictionary<string, UserControl>();
         private IWavePlayer? _waveOutDevice;
         private AudioFileReader? _audioFileReader;
         public MainWindow(IWavePlayer? waveOutDevice, AudioFileReader? audioFileReader) {
+            Instance = this;
             _waveOutDevice = waveOutDevice;
             _audioFileReader = audioFileReader;
             InitializeComponent();
@@ -55,21 +57,8 @@ namespace EchoBranch {
             LogFileHandler.CreateLogFile();
             LogFileHandler.WriteLog($"Log file initialized");
             var spotifyView = this.FindControl<SpotifyView>("SpotifyView");
-
-            // Subscribe to the LayoutChanged event of the SpotifyView
-            if (spotifyView != null) spotifyView.LayoutChanged += SpotifyView_LayoutChanged;
-
-
             this.AddHandler(DragDrop.DropEvent, (sender, e) => DropEvent.HandleDrop(this, e));
         }
-
-        private void SpotifyView_LayoutChanged()
-        {
-            //this has to be a null string so it wont show up after switching the view
-            //current doesnt work for some reason though??
-            SpotifyTextBlock.Text = "";
-        }
-
         private void SetupViews() {
             // This was the easiest way I could think of setting up the multiple views
             // If anyone has a better implementation please let me know.
@@ -94,6 +83,12 @@ namespace EchoBranch {
             _waveOutDevice = new WaveOutEvent();
             _waveOutDevice.Init(_audioFileReader);
             _waveOutDevice.Play();
+        }
+
+        public void SwitchToPlaylistView(UserControl spotifyPlaylistView)
+        {
+            views["Playlist"] = spotifyPlaylistView;
+            SwitchView("Playlist");
         }
 
         private void DisposeWave() {

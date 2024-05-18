@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -8,9 +8,12 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
+using System.Runtime.InteropServices;
 
 namespace EchoBranch.Views
 {
@@ -18,12 +21,11 @@ namespace EchoBranch.Views
     {
         private const string ClientId = "3d31767e98fc4291b6c80eab03a82d53";
         //no clue if the client secret works on other computers, testing is needed :(
-        //this needs to grab from github secrets rather than IDE env variables.
         private static readonly string ClientSecret = Environment.GetEnvironmentVariable("CLIENTSECRET") ?? throw new InvalidOperationException("Client Secret not found in environment variables");
         private const string RedirectUri = "http://localhost:9090";
         public event Action? LayoutChanged;
 
-        protected internal SpotifyView()
+        public SpotifyView()
         {
             InitializeComponent();
             this.FindControl<Button>("SpotifyApiLink")!.Click += (sender, e) => AuthorizeSpotify();
@@ -37,6 +39,7 @@ namespace EchoBranch.Views
             {
                 LoadNewLayout();
             }
+            RefreshTokenOnStartup();
         }
 
         private void InitializeComponent()
@@ -44,24 +47,182 @@ namespace EchoBranch.Views
             AvaloniaXamlLoader.Load(this);
         }
 
-        private async void LoadNewLayout()
+        private async void RefreshTokenOnStartup()
         {
-            // Fetch the user's playlists from Spotify's Web API
-            var playlists = await FetchPlaylists();
-
-            var stackPanel = new StackPanel { Orientation = Orientation.Vertical };
-
-            foreach (var textBlock in playlists.Select(playlist => new TextBlock { Text = playlist }))
+            try
             {
-                stackPanel.Children.Add(textBlock);
+                var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+                var filePath = Path.Combine(appDataPath, "EchoBranch", "data", "spotifyToken.json");
+
+                if (File.Exists(filePath))
+                {
+                    var token = LoadToken();
+
+                    if (token.expiration_time <= DateTime.Now)
+                    {
+                        await RefreshAccessToken(token.refresh_token);
+                    }
+
+                    LoadNewLayout();
+                }
             }
-
-            this.Content = stackPanel;
-
-            LayoutChanged?.Invoke();
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                LogFileHandler.CreateLogFile();
+                LogFileHandler.WriteLog($"Error refreshing Spotify token: {ex.Message}");
+            }
         }
 
-        private async Task<List<string?>> FetchPlaylists()
+private async void LoadNewLayout()
+{
+    var playlists = await FetchPlaylists();
+
+    if (playlists == null || !playlists.Any())
+    {
+        Console.WriteLine("No playlists found.");
+        return;
+    }
+
+    var stackPanel = new StackPanel { Orientation = Orientation.Horizontal, VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top };
+
+    using var client = new HttpClient();
+
+    foreach (var playlist in playlists)
+    {
+        if (playlist == null)
+        {
+            Console.WriteLine("Playlist is null.");
+            continue;
+        }
+
+        var coverArtUrl = playlist.coverArtUrl;
+        if (coverArtUrl == null)
+        {
+            Console.WriteLine("No cover art found for this playlist item.");
+            continue;
+        }
+
+        await using var imageStream = await client.GetStreamAsync(coverArtUrl);
+        var memoryStream = new MemoryStream();
+        await imageStream.CopyToAsync(memoryStream);
+        memoryStream.Position = 0;
+        var bitmap = new Avalonia.Media.Imaging.Bitmap(memoryStream);
+
+        var lightness = CalculateImageLightness(bitmap);
+        Debug.WriteLine($"Calculated lightness: {lightness}");
+
+        var textColor = lightness > 0.4 ? Colors.Black : Colors.White;
+        Debug.WriteLine($"Chosen text color: {(textColor == Colors.Black ? "Black" : "White")}");
+        const int playlistBoxWidth = 70; // feels good for now but is here for now for future user customization
+        const float coverArtAspectRatio = 1.13636364f;
+        const float playlistBoxHeight = (playlistBoxWidth / coverArtAspectRatio);
+        // ^^ these two wont be customizable though because of the specific width and height spotify uses with this exact aspect ratio.
+
+        var textBlock = new TextBlock { Text = playlist.name, Width = playlistBoxWidth, Height = playlistBoxHeight, TextWrapping = TextWrapping.WrapWithOverflow, Foreground = new SolidColorBrush(textColor) };
+        FontSize = 16;
+        FontWeight = FontWeight.Bold;
+        var border = new Border {
+            Child = textBlock,
+            BorderBrush = new SolidColorBrush(Colors.White),
+            BorderThickness = new Thickness(2),
+            Padding = new Thickness(playlistBoxWidth, playlistBoxHeight),
+            RenderTransformOrigin = new RelativePoint(0.5, 0.5, RelativeUnit.Relative),
+            Margin = new Thickness(20, 0),
+            CornerRadius = new CornerRadius(10),
+            Background = new ImageBrush(bitmap) { Stretch = Stretch.UniformToFill },
+            VerticalAlignment = VerticalAlignment.Bottom // Align the text to the bottom
+        };
+        border.Classes.Add("hoverable-border");
+
+        border.PointerPressed += (sender, e) => OpenPlaylist(playlist.id);
+
+        stackPanel.Children.Add(border);
+    }
+
+    var scrollViewer = new ScrollViewer
+    {
+        Content = stackPanel,
+        HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
+        VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top,
+    };
+
+    this.Content = scrollViewer;
+
+    LayoutChanged?.Invoke();
+}
+
+private double CalculateImageLightness(Avalonia.Media.Imaging.Bitmap bitmap) {
+
+    var pixelSize = new Avalonia.PixelSize(bitmap.PixelSize.Width, bitmap.PixelSize.Height);
+    var renderTargetBitmap = new Avalonia.Media.Imaging.RenderTargetBitmap(pixelSize);
+
+    using (var ctx = renderTargetBitmap.CreateDrawingContext()) {
+        ctx.DrawImage(bitmap, new Rect(bitmap.Size), new Rect(bitmap.Size));
+    }
+
+    var pixelData = new byte[bitmap.PixelSize.Width * bitmap.PixelSize.Height * 4];
+    var buffer = Marshal.AllocHGlobal(pixelData.Length);
+    try {
+        const int bytesPerPixel = 4;
+        const int alignment = 4;
+        var stride = (bitmap.PixelSize.Width * bytesPerPixel + (alignment - 1)) / alignment * alignment;
+
+        renderTargetBitmap.CopyPixels(new Avalonia.PixelRect(pixelSize), buffer, pixelData.Length, stride);
+
+        Marshal.Copy(buffer, pixelData, 0, pixelData.Length);
+
+        var lightness = 0.0;
+        var pixelCount = 0;
+
+        for (var i = 0; i < pixelData.Length; i += 4)
+        {
+            var b = pixelData[i];
+            var g = pixelData[i + 1];
+            var r = pixelData[i + 2];
+
+            lightness += (r + g + b) / 3.0 / 255.0;
+            pixelCount++;
+        }
+
+        return lightness / pixelCount;
+    }
+    finally
+    {
+        Marshal.FreeHGlobal(buffer);
+    }
+}
+
+
+private void OpenPlaylist(string? playlistId)
+{
+    if (playlistId == null)
+    {
+        Console.WriteLine("Playlist id is null.");
+        return;
+    }
+
+    var spotifyPlaylistView = new SpotifyPlaylistAxaml();
+    spotifyPlaylistView.LoadPlaylist(playlistId);
+
+    MainWindow.Instance?.SwitchToPlaylistView(spotifyPlaylistView);
+}
+
+
+
+
+        public void UpdateLayout()
+        {
+            LoadNewLayout();
+        }
+
+        public class Image
+        {
+            public string? url { get; set; }
+        }
+
+        private async Task<List<PlaylistItem>> FetchPlaylists()
         {
             var token = LoadToken();
             using var httpClient = new HttpClient();
@@ -71,12 +232,25 @@ namespace EchoBranch.Views
 
             var playlistsResponse = JsonSerializer.Deserialize<PlaylistsResponse>(responseString);
 
-            // Keep this null-safe please. Possible wacky behavior if for whatever reason end-user has no playlists
-            // Best way to do this in the future imo would be to have a settings menu to ask what they want to show from spotify
-            return playlistsResponse?.Items?.Select(i => i.Name).ToList() ?? [];
+            if (playlistsResponse.items != null)
+            {
+                foreach (var item in playlistsResponse.items)
+                {
+                    if (item.images != null && item.images.Count > 0)
+                    {
+                        Console.WriteLine(item.images[0].url);
+                    }
+                    else
+                    {
+                        Console.WriteLine("No images found for this playlist item.");
+                    }
+                }
+            }
+
+            return playlistsResponse.items?.Select(i => new PlaylistItem { name = i.name, coverArtUrl = i.images?[0].url, id = i.id }).ToList() ?? new List<PlaylistItem>();
         }
 
-        private static SpotifyTokenResponse? LoadToken()
+        public static SpotifyTokenResponse LoadToken()
         {
             var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             var filePath = Path.Combine(appDataPath, "EchoBranch", "data", "spotifyToken.json");
@@ -84,19 +258,18 @@ namespace EchoBranch.Views
             return JsonSerializer.Deserialize<SpotifyTokenResponse>(jsonString);
         }
 
-        public class PlaylistsResponse(List<PlaylistItem>? items)
+        public class PlaylistsResponse
         {
-            public List<PlaylistItem>? Items { get; init; } = items;
+            public List<PlaylistItem> items { get; set; }
         }
 
-        public abstract class PlaylistItem
+        public class PlaylistItem
         {
-            protected PlaylistItem(string? name)
-            {
-                Name = name;
-            }
+            public string? name { get; set; }
+            public string? coverArtUrl { get; set; }
+            public string? id { get; set; }
 
-            public string? Name { get; }
+            public List<Image>? images { get; set; } // images can be null
         }
 
         private static async void AuthorizeSpotify()
@@ -146,12 +319,11 @@ namespace EchoBranch.Views
 
             var tokenResponse = JsonSerializer.Deserialize<SpotifyTokenResponse>(responseString);
 
-            SaveToken(tokenResponse ?? throw new InvalidOperationException("Unable to save the token."));
+            SaveToken(tokenResponse);
 
             LogFileHandler.CreateLogFile();
             LogFileHandler.WriteLog($"Spotify authorization complete and successful!");
 
-            //handle token expiration
             if (tokenResponse.expiration_time <= DateTime.Now)
             {
                 await RefreshAccessToken(tokenResponse.refresh_token);
@@ -178,7 +350,6 @@ namespace EchoBranch.Views
 
         private static async Task RefreshAccessToken(string refreshToken)
         {
-            // this doesnt work yet for whatever reason, investigation needed.
             using var httpClient = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Post, "https://accounts.spotify.com/api/token");
             request.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.UTF8.GetBytes($"{ClientId}:{ClientSecret}")));
@@ -194,7 +365,7 @@ namespace EchoBranch.Views
 
             var tokenResponse = JsonSerializer.Deserialize<SpotifyTokenResponse>(responseString);
 
-            SaveToken(tokenResponse ?? throw new InvalidOperationException("Unable to refresh the Spotify token."));
+            SaveToken(tokenResponse);
         }
         public class SpotifyTokenResponse
         {

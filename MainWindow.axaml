@@ -46,7 +46,6 @@
         <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <!--Add text that says to drag in an audio file to make a playlist-->
             <ContentControl Name="MainTextContent" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Name="SpotifyTextBlock" Text="Drag in an audio file to make a playlist! (Or connect your Spotify Account!)" FontSize="16" Foreground="White" HorizontalAlignment="Center"/>
             </ContentControl>
             <ContentControl Name="MainContent" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </StackPanel>

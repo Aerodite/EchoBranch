@@ -3,3 +3,5 @@
 .env
 .env
 /bin/Debug/net8.0
+/bin
+/bin/Debug/net8.0
